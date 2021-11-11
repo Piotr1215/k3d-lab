@@ -15,10 +15,13 @@ k3d cluster create k3d-rancher \
 
 ### Swap to right context
 
+```bash
 k3d kubeconfig get k3d-rancher > $HOME/.kube/k3d-config
+
 echo export KUBECONFIG=~/.kube/config:~/.kube/k3d-config >> ~/.zshrc
+
 source ~/.zshrc
-k ctx
+```
 
 ## Install Rancher and Cert Manager
 
