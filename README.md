@@ -29,12 +29,12 @@ source ~/.zshrc
 
 ```bash
 helm repo add jetstack https://charts.jetstack.io
-helm repo update
-kubectl create namespace cert-manager
+
 helm install cert-manager jetstack/cert-manager \
     --namespace cert-manager \
     --version v1.5.3 \
-    --set installCRDs=true --wait --debug
+    --set installCRDs=true --wait --debug --create-namespace
+
 kubectl -n cert-manager rollout status deploy/cert-manager
 ```
 
@@ -43,13 +43,14 @@ kubectl -n cert-manager rollout status deploy/cert-manager
 ```bash
 helm repo add rancher-latest https://releases.rancher.com/server-charts/latest
 helm repo update
-kubectl create namespace cattle-system
+
 helm install rancher rancher-latest/rancher \
     --namespace cattle-system \
     --version=2.6.0 \
     --set hostname=rancher.localhost \
     --set bootstrapPassword=passwd123 \
-    --wait --debug
+    --wait --debug --create-namespace
+
 kubectl -n cattle-system rollout status deploy/rancher
 kubectl -n cattle-system get all,ing
 ```
