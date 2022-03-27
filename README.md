@@ -26,6 +26,8 @@ source ~/.zshrc
 ## Install Rancher and Cert Manager
 
 ### Install cert-manager with helm
+
+```bash
 helm repo add jetstack https://charts.jetstack.io
 helm repo update
 kubectl create namespace cert-manager
@@ -34,8 +36,11 @@ helm install cert-manager jetstack/cert-manager \
     --version v1.5.3 \
     --set installCRDs=true --wait --debug
 kubectl -n cert-manager rollout status deploy/cert-manager
+```
 
 ### Install the helm repos for rancher
+
+```bash
 helm repo add rancher-latest https://releases.rancher.com/server-charts/latest
 helm repo update
 kubectl create namespace cattle-system
@@ -47,3 +52,4 @@ helm install rancher rancher-latest/rancher \
     --wait --debug
 kubectl -n cattle-system rollout status deploy/rancher
 kubectl -n cattle-system get all,ing
+```
